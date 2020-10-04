@@ -5,6 +5,7 @@ tally_dict = {}
 total_votes = 0
 
 input_path = os.path.join('Resources', 'election_data.csv')
+output_path = os.path.join('Output', 'election_results.txt')
 
 with open(input_path, 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
@@ -29,5 +30,7 @@ result_list = [get_pct(candidate, votes) for candidate, votes in tally_dict.item
 bar = "-------------------------"
 analysis = ["Election Results", bar, f"Total Votes: {total_votes}", bar] + result_list + [bar, f"Winner: {winner}", bar]
 
-for line in analysis:
-    print(line)
+with open(output_path, 'w') as results_file:
+    for line in analysis:
+        print(line)
+        results_file.write("%s\n" % line)
