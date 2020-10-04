@@ -33,6 +33,6 @@ Since this is an exercise in tallying, I thought a dictionary would be a good da
 
 To find the winner, I used the *max()* method and passed it the dictionary, and similar to the PyBank, also passed it (but didn't call) its *get()* method as the key, so that it will return the key for the largest value - ie the candidate's name - not the value itself.
 
-In the end, we need to calculate each candidate's percent of the vote and output results the same format, which seemed like a good use case for a function. It takes in the candidate's name and number of votes, calculates their percentage, and returns a properly f-string.
+In the end, we need to calculate each candidate's percent of the vote and output results the same format, which seemed like a good use case for a function. It takes in the candidate's name and number of votes, calculates their percentage, and returns a properly formatted f-string.
 
 Next I used that function within a list comprehension to output a list of formatted strings for each candidate. Similar to PyBank, I created a list of strings for each line to be output, and looped over them in the *with* block of the file *open*, simultaneously writing to the terminal and the new text file.
