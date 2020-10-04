@@ -34,11 +34,5 @@ print(*financial_analysis, sep = "\n")
 
 with open(output_path, 'w') as results_file:
     csv_writer = csv.writer(results_file)
-
-    csv_writer.writerows(financial_analysis)
-    csv_writer.writerow("")
-    csv_writer.writerow("Data")
-    csv_writer.writerow("----------------------------")
-    csv_writer.writerow("")
     csv_writer.writerow(column_names)
     csv_writer.writerows(budget_list)
