@@ -13,9 +13,11 @@ The source .csv file for PyBank contains 2 columns:
 
 The Python script opens the .csv data and loops over the rows. Each loop appends the data to a list of tuples - which seemed like a tidy data structure to use for a dataset with 2 columns - and increments the total.
 
+It also calculates the change from the previous month's profit/loss, which is stored in a variable called *prev_pl*. Since the first row doesn't have a previous month, I used *nextrow* to grab its values prior to the loop and initialize *prev_pl*, which then gets reset to the current row's value at the end of each loop.
+
 I then put the list in ascending order using *sort()*, but with a lambda function passed in as the key. The lambda takes in the tuple and returns the second value - ie *Profits/Losses* - to tell *sort()* what to sort by.
 
-That made finding the greatest increase and decrease was simple, just by appending `[0]` and `[-1]` to the sorted list. Number of months is just the length of the list, and with the total already calculated, it's simple to get the average.
+That made finding the greatest increase and decrease was simple, just by appending `[0]` and `[-1]` to the sorted list. Number of months is just the length of the list, and with the total change already calculated, it's simple to get the average by dividing by number of months - 1.
 
 Next was finding a way out of writing so many print statements, as well as having redundancy between that and the text file output. I ended up making a list of strings, using f-strings for data interpolation, and looped over them inside the *with* block of the *open()* method. Each line gets printed to the terminal and written to the results file, using `"%s\n"` to create line breaks.
 
@@ -33,6 +35,6 @@ Since this is an exercise in tallying, I thought a dictionary would be a good da
 
 To find the winner, I used the *max()* method and passed it the dictionary, and similar to the PyBank, also passed it (but didn't call) its *get()* method as the key, so that it will return the key for the largest value - ie the candidate's name - not the value itself.
 
-In the end, we need to calculate each candidate's percent of the vote and output results the same format, which seemed like a good use case for a function. It takes in the candidate's name and number of votes, calculates their percentage, and returns a properly formatted f-string.
+In the end, we need to calculate each candidate's percent of the vote and output results the same format, which seemed like a good use case for a function. It takes in the candidate's name and number of votes, calculates their percentage, and returns a properly f-string.
 
 Next I used that function within a list comprehension to output a list of formatted strings for each candidate. Similar to PyBank, I created a list of strings for each line to be output, and looped over them in the *with* block of the file *open*, simultaneously writing to the terminal and the new text file.
