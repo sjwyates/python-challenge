@@ -4,6 +4,7 @@ import operator as op
 
 budget_list = []
 total_pl = 0
+pl_changes = []
 
 input_path = os.path.join('Resources', 'budget_data.csv')
 output_path = os.path.join('Output', 'budget_results.txt')
@@ -12,15 +13,22 @@ with open(input_path, 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
 
     next(csv_reader)
+    first_row = next(csv_reader)
+    prev_pl = int(first_row[1])
+    budget_list.append((first_row[0], prev_pl))
 
     for row in csv_reader:
-        budget_list.append((row[0], int(row[1])))
-        total_pl += int(row[1])
-
+        date = row[0]
+        pl = int(row[1])
+        budget_list.append((date, pl))
+        total_pl += pl
+        pl_changes.append(pl - prev_pl)
+        prev_pl = pl
+        
 budget_list.sort(key = lambda x: x[1])
 
 num_months = len(budget_list)
-avg_change = total_pl / num_months
+avg_change = sum(pl_changes) / (num_months - 1)
 greatest_inc = budget_list[-1]
 greatest_dec = budget_list[0]
 
