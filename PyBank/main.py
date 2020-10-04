@@ -7,7 +7,7 @@ budget_list = []
 total_pl = 0
 
 input_path = os.path.join('Resources', 'budget_data.csv')
-output_path = os.path.join('Output', 'budget_results.csv')
+output_path = os.path.join('Output', 'budget_results.txt')
 
 with open(input_path, 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
@@ -25,14 +25,12 @@ avg_change = total_pl / num_months
 greatest_inc = budget_list[-1]
 greatest_dec = budget_list[1]
 
-financial_analysis = ["Financial Analysis", "----------------------------", 
+analysis = ["Financial Analysis", "----------------------------", 
 f"Total Months: {num_months}", f"Total: ${total_pl}", f"Average Change: {avg_change}", 
 f"Greatest Increase in Profits: {greatest_inc[0]} ({greatest_inc[1]})", 
 f"Greatest Decrease in Profits: {greatest_dec[0]} ({greatest_dec[1]})"]
 
-print(*financial_analysis, sep = "\n")
-
 with open(output_path, 'w') as results_file:
-    csv_writer = csv.writer(results_file)
-    csv_writer.writerow(column_names)
-    csv_writer.writerows(budget_list)
+    for line in analysis:
+        print(line)
+        results_file.write("%s\n" % line)
